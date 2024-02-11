@@ -1,30 +1,30 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <header class="an-header">
+    <span>Anastasia</span>
+    <ToolBar/>
+  </header>
+  <LeftSideMenu/>
+  <Viewport/>
+  <RightSideMenu/>
+  <StatusBar/>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+<script setup>
+import StatusBar from "./components/StatusBar.vue";
+import ToolBar from "./components/ToolBar.vue";
+import LeftSideMenu from "./components/LeftSideMenu.vue";
+import RightSideMenu from "./components/RightSideMenu.vue";
+import Viewport from "./components/Viewport.vue";
+</script>
+
+<style>
+body {
+  display: grid;
+  grid-template:
+    "header header header"
+    "leftmenu viewport rightmenu"
+    "status status status";
+  grid-template-rows: 2rem auto var(--status-size, 2rem);
+  grid-template-columns: var(--leftmenu-size, 0ch) auto var(--rightmenu-size, 30ch);
 }
 </style>
