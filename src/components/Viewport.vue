@@ -3,19 +3,19 @@
 	</main>
 </template>
 <script setup>
+
 const vSetup = {
 	created: (el) => {
 		const iframe = document.createElement("iframe");
 		iframe.frameBorder = "0";
-		iframe.width="50%";
+		iframe.width="100%";
 		iframe.height="100%";
 		iframe.classList.add("an-frame");
-		iframe.src = "about:blank";
+		// iframe.src = "about:blank";
 		iframe.allowFullscreen = true;
 		iframe.onload = () => {
-			console.log(iframe)
 			const text = document.createElement("h1");
-			text.innerText ="This page is being worked on"
+			text.innerText = "This page is being worked on";
 			iframe.contentDocument.body.appendChild(text);
 		}
 		el.iframe = el.appendChild(iframe);

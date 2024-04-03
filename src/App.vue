@@ -19,6 +19,7 @@ import Viewport from "./components/Viewport.vue";
 
 <style>
 body {
+  overflow: hidden;
   display: grid;
   grid-template:
     "header header header"
