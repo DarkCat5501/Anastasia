@@ -10,12 +10,17 @@
   <StatusBar/>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import StatusBar from "./components/StatusBar.vue";
 import ToolBar from "./components/ToolBar.vue";
 import LeftSideMenu from "./components/LeftSideMenu.vue";
 import RightSideMenu from "./components/RightSideMenu.vue";
 import Viewport from "./components/Viewport.vue";
+import { provideProp } from "./composables/component";
+
+
+provideProp("components",["test"],"leftsidemenu");
+
 </script>
 
 <style scoped>

@@ -1,9 +1,9 @@
-import { createApp } from 'vue'
+import { createApp, provide } from 'vue'
 import './style.css'
 import App from './App.vue'
 
-createApp(App).mount('#app')
+import { provideProps } from "./composables/component";
 
-
-//Create all menu items
+const app = createApp(App);
+app.mount('#app')
 

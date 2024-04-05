@@ -1,10 +1,19 @@
 <template>
   <aside ref="selfEl" class="an-left-sidemenu" @dblclick="handleMinimize">
+    <template v-for="(comp,index) of components" :key="index">
+      <span>
+        {{comp}}
+      </span>
+      <!-- <component v-bind="comp.bind" v-on="comp.on"> -->
+      <!---->
+      <!-- </component> -->
+    </template>
   </aside>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref, unref } from 'vue';
+import { injectProps } from '../composables/component';
 
 const selfEl = ref<HTMLDivElement>();
 const size = ref(3);
@@ -22,6 +31,8 @@ function handleResize(){
   const parent = unref(selfEl).parentElement;
   parent.style.setProperty("--leftmenu-size",`${unref(size)}ch`);
 }
+
+const { components } = injectProps({components:[]},"leftsidemenu");
 
 onMounted(()=>{
   handleResize();
