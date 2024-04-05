@@ -10,20 +10,16 @@ const selfEl = ref<HTMLDivElement>();
 const size = ref(3);
 const minimized = ref(true);
 
-function handleMinimize(event) {
-  if(unref(minimized)){
-    size.value = 30;
-  } else {
-    size.value = 3;
-  }
+//Handles the minimization of the sizebar
+function handleMinimize() {
+  size.value = unref(minimized)?30:3;
   minimized.value=!unref(minimized);
   handleResize();
 }
 
+//resizes the sidebar
 function handleResize(){
   const parent = unref(selfEl).parentElement;
-  const rect = unref(selfEl).getBoundingClientRect();
-  console.log(rect)
   parent.style.setProperty("--leftmenu-size",`${unref(size)}ch`);
 }
 
