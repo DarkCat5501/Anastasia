@@ -1,7 +1,6 @@
 <template>
   <header class="an-header">
     <ToolBar/>
-    <span>Anastasia</span>
   </header>
   <main class="center-area">
     <LeftSideMenu/>

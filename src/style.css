@@ -15,6 +15,16 @@
   box-sizing: border-box;
 }
 
+/*disables scroll bars*/
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+/**/
 body {
   overflow: hidden;
   margin: 0;
@@ -30,6 +40,8 @@ body {
   display: flex;
   flex-direction: column;
   flex: 1;
+  font-family: Helvetica, Monaco;
+  font-weight: 400;
   /*base colors*/
   --th-cl0: #1d1d1d;
   --th-cl0-l: #2d2d2d;
@@ -69,7 +81,7 @@ body {
   display: flex;
   font-weight: bold;
   align-items: center;
-  overflow: hidden;
+  overflow-x: hidden;
   padding: 0;
   margin: 0;
   height: fit-content;
@@ -127,15 +139,18 @@ fieldset:has(>legend)[class~="an-menu"]>legend {
 }
 
 .menu-bar>li {
+  display: flex;
   margin: 0;
-  padding: 0;
+  padding: 0 5px;
   float: left;
+  text-align: center;
 }
+
 
 /*Special MENUs*/
 .an-left-sidemenu {
   grid-area: leftmenu;
-  overflow-y: hidden;
+  overflow: hidden scroll;
   position: relative;
   /* height: 101%; */
 }
@@ -151,22 +166,23 @@ fieldset:has(>legend)[class~="an-menu"]>legend {
 }
 
 .an-left-sidemenu:hover::after {
-  background: var(--th-cl1);
-  width: 1ch;
-  border-radius: 999px;
+  background: var(--th-accent-cl-hover);
+  width: 0.57ch;
+  border-radius: 10px;
 }
 
 .an-right-sidemenu {
   grid-area: rightmenu;
   display: block;
-  overflow-y: scroll;
+  overflow: hidden scroll;
 }
 
 /*STATUS BAR */
 .an-statusbar {
   grid-area: status;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
-  display: flex;
 }
 
 

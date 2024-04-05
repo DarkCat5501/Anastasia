@@ -1,13 +1,13 @@
 <template>
 	<ul class="menu-bar">
 		<li>
-		<button>Settings</button>
+			<button>Project</button>
 		</li>
 		<li>
-		<button>Settings</button>
+			<button>Options</button>
 		</li>
 		<li>
-		<button>Settings</button>
+			<button>Help</button>
 		</li>
 	</ul>
 </template>
