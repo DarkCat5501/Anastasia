@@ -1,11 +1,13 @@
 <template>
   <header class="an-header">
-    <span>Anastasia</span>
     <ToolBar/>
+    <span>Anastasia</span>
   </header>
-  <LeftSideMenu/>
-  <Viewport/>
-  <RightSideMenu/>
+  <main class="center-area">
+    <LeftSideMenu/>
+    <Viewport/>
+    <RightSideMenu/>
+  </main>
   <StatusBar/>
 </template>
 
@@ -17,15 +19,12 @@ import RightSideMenu from "./components/RightSideMenu.vue";
 import Viewport from "./components/Viewport.vue";
 </script>
 
-<style>
-body {
+<style scoped>
+.center-area {
   overflow: hidden;
   display: grid;
-  grid-template:
-    "header header header"
-    "leftmenu viewport rightmenu"
-    "status status status";
-  grid-template-rows: 2rem auto var(--status-size, 2rem);
-  grid-template-columns: var(--leftmenu-size, 0ch) auto var(--rightmenu-size, 30ch);
+  grid-template:"leftmenu viewport rightmenu";
+  height:100%;
+  grid-template-columns: var(--leftmenu-size, 3ch) auto var(--rightmenu-size, 30ch);
 }
 </style>

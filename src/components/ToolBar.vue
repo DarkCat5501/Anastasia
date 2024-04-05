@@ -1,5 +1,11 @@
 <template>
-	<ul>
+	<ul class="menu-bar">
+		<li>
+		<button>Settings</button>
+		</li>
+		<li>
+		<button>Settings</button>
+		</li>
 		<li>
 		<button>Settings</button>
 		</li>
