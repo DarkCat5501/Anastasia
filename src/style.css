@@ -50,6 +50,7 @@ body {
 
   /*text colors*/
   --th-txt-primary: #ededed;
+  --th-txt-active: #f9f900;
   --th-txt-secondary: #fc2d2a;
   /*component colors*/
   --th-accent-cl: #3d3d3d;
@@ -59,7 +60,6 @@ body {
 }
 
 /* Color pallet */
-
 
 /* attacheables */
 .bordered {
@@ -126,8 +126,7 @@ body {
   background: var(--th-accent-cl-hover);
 }
 
-
-fieldset:has(>legend)[class~="an-menu"]>legend {
+fieldset:has(> legend)[class~="an-menu"]>legend {
   width: 100%;
   display: flex;
 }
@@ -145,7 +144,6 @@ fieldset:has(>legend)[class~="an-menu"]>legend {
   float: left;
   text-align: center;
 }
-
 
 /*Special MENUs*/
 .an-left-sidemenu {
@@ -185,7 +183,6 @@ fieldset:has(>legend)[class~="an-menu"]>legend {
   overflow: hidden;
 }
 
-
 /*Overloads*/
 button {
   background: rgba(var(--th-cl0), 0.8);
@@ -198,5 +195,5 @@ button {
 
 button:hover {
   background: var(--th-cl1);
-  color: var(--th-txt-secondary)
+  color: var(--th-txt-secondary);
 }

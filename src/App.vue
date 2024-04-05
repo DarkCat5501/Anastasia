@@ -17,9 +17,14 @@ import LeftSideMenu from "./components/LeftSideMenu.vue";
 import RightSideMenu from "./components/RightSideMenu.vue";
 import Viewport from "./components/Viewport.vue";
 import { provideProp } from "./composables/component";
+import { onMounted } from "vue";
 
 
 provideProp("components",["test"],"leftsidemenu");
+
+onMounted(()=>{
+
+});
 
 </script>
 
