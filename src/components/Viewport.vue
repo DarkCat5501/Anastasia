@@ -9,16 +9,19 @@
 				<span class="material-symbols-outlined" :class="{'active':pan_active}">pan_tool</span>
 			</button>
 		</div>
+
+		<DataTable/>
 	</main>
 </template>
 <script setup lang="ts">
 
 import { ref } from "vue";
 import {MainViewport} from "../composables/viewport";
+import DataTable from "./DataTable.vue";
 
 const vSetup = {
 	created: (el) => {
-		MainViewport.attach(el);
+		// MainViewport.attach(el);
 	},
 	// beforeMount: (el) => {},
 	// mounted: (el) => {},
@@ -28,12 +31,12 @@ const vSetup = {
 	// unmounted:(el) => {}
 }
 
-const locked = ref(MainViewport.lock);
+const locked = ref(MainViewport.locked);
 const pan_active = ref(true);
 
 function toggleLock() {
 	MainViewport.toggleLock();
-	locked.value = MainViewport.locked;
+	locked.value = MainViewport.locked
 }
 
 function togglePan(){

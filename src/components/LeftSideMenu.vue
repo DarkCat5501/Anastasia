@@ -1,13 +1,7 @@
 <template>
   <aside ref="selfEl" class="an-left-sidemenu" @dblclick="handleMinimize">
-    <template v-for="(comp,index) of components" :key="index">
-      <span>
-        {{comp}}
-      </span>
-      <!-- <component v-bind="comp.bind" v-on="comp.on"> -->
-      <!---->
-      <!-- </component> -->
-    </template>
+    <!-- <template v-for="(comp,index) of components" :key="index"> -->
+    <!-- </template> -->
   </aside>
 </template>
 
