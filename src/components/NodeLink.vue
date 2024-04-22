@@ -4,40 +4,28 @@
 			<path :d="shape"/>
 		</svg>
 
-		<div class="dot" draggable="true" :style="{'--left':`${positions[0].x}px`,'--top':`${positions[0].y}px`}" @dragstart="(e) => handleStart(e,0)" @dragend="(e)=>handleDrop(e,0)"></div>
-		<div class="dot" draggable="true" :style="{'--left':`${positions[1].x}px`,'--top':`${positions[1].y}px`}" @dragstart="(e) => handleStart(e,1)" @dragend="(e)=>handleDrop(e,1)"></div>
+		<div v-draggable0 class="dot" :style="{'--left':`${pos0.x}px`,'--top':`${pos0.y}px`}"></div>
+		<div v-draggable1 class="dot" :style="{'--left':`${pos1.x}px`,'--top':`${pos1.y}px`}"></div>
 
 		<!-- <div class="dot" draggable="true" @drop=handle></div> -->
 	</div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, unref } from 'vue';
+import { computed, onMounted, reactive, ref, unref } from 'vue';
+import { useDraggable} from "../composables/draggable";
 
 const element = ref<HTMLOrSVGElement>();
-const positions = ref([{x:0,y:0},{x:0,y:0}]);
-const starts = ref([{x:0,y:0},{x:0,y:0}]);
+const pos0 = ref({x:100,y:Math.random()*100+100});
+const pos1 = ref({x:Math.random()*400+200,y:Math.random()*500+100});
 
-function handleStart(e: DragEvent,index:number) {
-	const sts = unref(starts);
-	sts[index] = {x:e.screenX,y:e.screenY};
-	starts.value = sts;
-}
+const vDraggable0=useDraggable(pos0);
+const vDraggable1=useDraggable(pos1);
 
-function handleDrop(e: DragEvent,index:number) {
-	const pos = unref(positions);
-
-	const p = pos[index];
-
-	p.y += e.screenY - unref(starts)[index].y;
-	p.x += e.screenX - unref(starts)[index].x;
-
-	positions.value = pos;
-}
 
 const shape = computed(() => {
-	const p0 = unref(positions)[0];
-	const p1 = unref(positions)[1];
+	const p0 = unref(pos0);
+	const p1 = unref(pos1);
 	const pm = {x: (p0.x+p1.x)/2, y:(p0.y+p1.y)/2};
 	const p2 = {x: (p0.x+p1.x)/2,y:p0.y};
 
@@ -61,17 +49,16 @@ onMounted(() => {
 	width:100%;
 	height:100%;
 	overflow: visible;
-	stroke: magenta;
+	stroke: var(--th-cl2);
 	stroke-width: 3;
 	stroke-opacity: 0.8;
 	stroke-linecap: round;
 }
 
 .dot {
-	z-index: 999;
 	width:10px;
 	height:10px;
-	background:var(--color,magenta);
+	background:var(--th-cl2,magenta);
 	top:var(--top,0);
 	left:var(--left,0);
 	position:absolute;

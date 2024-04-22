@@ -28,13 +28,8 @@ const minimized = ref(false);
 const title = computed(()=>props.name)
 
 const items = ref([
-	{ action:"ADD",type:"BUTTON",name:"+ adicionar"},
-	{ action:"REMOVE", type:"BUTTOn",name:"- remover"},
-	{ action:"REMOVE", type:"BUTTOn",name:""},
-	{ action:"REMOVE", type:"BUTTOn",name:"remover"},
-	{ action:"REMOVE", type:"BUTTOn",name:"remover"},
-	{ action:"REMOVE", type:"BUTTOn",name:"remover"},
-	{ action:"REMOVE", type:"BUTTOn",name:"remover"}
+	{ action:"ADD",type:"BUTTON",name:"adicionar tabela"},
+	{ action:"REMOVE", type:"BUTTON",name:"importar tabela"},
 ]);
 
 function handleMinimize(){

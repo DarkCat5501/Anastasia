@@ -43,6 +43,7 @@ body {
   font-family: Helvetica, Monaco;
   font-weight: 400;
   /*base colors*/
+  --th-bg: #0d0d0d;
   --th-cl0: #1d1d1d;
   --th-cl0-l: #2d2d2d;
   --th-cl1: #4d3d3d;

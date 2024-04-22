@@ -10,15 +10,12 @@
 			</button>
 		</div>
 		<main v-setup ref="viewport" class="an-panport">
+			<NodeLink/>
+			<NodeLink/>
 
-			<DataTable/>
-			<DataTable/>
-			<DataTable/>
-			<DataTable/>
+			<DataTable @vnode-updated="handleColision"/>
 			<DataTable/>
 
-			<!-- <NodeLink/> -->
-			<!-- <NodeLink/> -->
 		</main>
 	</div>
 </template>
@@ -34,24 +31,16 @@ function handleColision(){
 }
 
 const vSetup = {
-	created: (el) => {
+	created: (root:HTMLElement) => {
 		// console.log("click");
 		// MainViewport.attach(el);
-		const options = {
-			root: el,
-			threshold:0
-		};
-
-		el._cl_obs = new IntersectionObserver(handleColision, {
-			root:el,
-			threshold:0,
-			rootMargin:"10px",
-		});
 	},
 	// beforeMount: (el) => {},
 	// mounted: (el) => {},
 	// beforeUpdate: (el) => {},
-	// updated: (el) => {},
+	updated: (root:HTMLElement) => {
+		console.log("updated");
+	},
 	// beforeUnmount:(el)=>{},
 	// unmounted:(el) => {}
 }
@@ -78,19 +67,15 @@ function togglePan(){
 	height: 100%; width:100%;
 	overflow:hidden;
 	/* user-zoom: fixed; */
+	background: var(--th-bg);
 }
 .an-panport{
 	position:relative;
-	overflow: scroll;
+	overflow: visible;
 	transform: translate(var(--pos-x,0px),var(--pos-y,0px));
-	border:1px solid red;
 	width:100%;
 	height:100%;
 	padding:3rem;
-	scroll-margin: 3rem;
-	scroll-padding: 10rem;
-	scroll-behavior: smooth;
-
 }
 button {
 	padding:5px;

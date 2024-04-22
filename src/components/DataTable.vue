@@ -1,14 +1,14 @@
 <template>
 	<fieldset 
 		class="table-win" 
-		:style="{'--pos-x':`${positions[0].x}px`,'--pos-y':`${positions[0].y}px`}"
+		:style="{'--pos-x':`${position.x}px`,'--pos-y':`${position.y}px`}"
+		@mouseenter="handleHoverIn"
+		@mouseleave="handleHoverOut"
 		>
-		<legend @dblclick="handleShow" draggable="true" 
-			@dragend="(e)=>handleDrop(e,0)"
-			@dragstart="(e)=>handleStart(e,0)">
+		<legend v-draggable @dblclick="handleShow">
 			Test table
 		</legend>
-		<div v-show="isVisible" class="table-grid" :style="{'--rows':rows,'--cols':cols}" title="Test table">
+		<div v-show="isVisible || isHover" class="table-grid" :style="{'--rows':rows,'--cols':cols}" title="Test table">
 			
 			<span class="col-label"></span>
 			<template v-for="col of range(cols)">
@@ -27,47 +27,52 @@
 
 <script setup lang="ts">
 import { ref, unref } from 'vue';
+import { useDraggable } from '../composables/draggable';
 
-const positions = ref([{x:0,y:0},{x:0,y:0}]);
-const starts = ref([{x:0,y:0},{x:0,y:0}]);
-
-function handleStart(e: DragEvent,index:number) {
-	const sts = unref(starts);
-	sts[index] = {x:e.screenX,y:e.screenY};
-	starts.value = sts;
-}
-
-function handleDrop(e: DragEvent,index:number) {
-	const pos = unref(positions);
-
-	const p = pos[index];
-
-	p.y += e.screenY - unref(starts)[index].y;
-	p.x += e.screenX - unref(starts)[index].x;
-
-	positions.value = pos;
-}
-
+const position = ref({x:0,y:0});
+const vDraggable = useDraggable(position);
 
 const rows = ref(30);
 const cols = ref(10);
-const isVisible=ref(true);
+const isVisible=ref(false);
+const isHover=ref(false);
 
+const hoverHandler = {timer:-1};
+function clearHoverTimer(){
+	if(hoverHandler.timer!==-1){
+		clearTimeout(hoverHandler.timer);
+		hoverHandler.timer=-1;
+	}
+}
 function handleShow(){
 	isVisible.value = !unref(isVisible);
+	isHover.value=false;
+	clearHoverTimer()
 }
 
-function* range(n){
-	for(let i=0;i<n;i++){
-		yield i;
+
+function handleHoverIn(e:MouseEvent){
+	clearHoverTimer();
+	if(e.shiftKey){
+		isHover.value=true;
+	} else {
+		hoverHandler.timer = setTimeout(() => {
+			isHover.value=true;
+			hoverHandler.timer=-1;
+		},500);
 	}
 }
 
-function* table_range(n,m){
+function handleHoverOut(e:MouseEvent){
+	clearHoverTimer();
+	setTimeout(() => {
+		isHover.value=false;
+	},e.shiftKey ? 3000: 100);
+}
+
+function* range(n:number){
 	for(let i=0;i<n;i++){
-		for(let j=0;j<m;j++){
-			yield [i,j];
-		}
+		yield i;
 	}
 }
 
@@ -93,7 +98,7 @@ function* table_range(n,m){
 	background: var(--th-cl1);
 	border-radius:5px;
 	padding-inline: 0.76rem;
-	display: block;
+	text-wrap: nowrap;
 }
 
 .table-win > legend:hover {
