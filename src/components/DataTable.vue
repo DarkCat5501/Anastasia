@@ -1,7 +1,14 @@
 <template>
-	<fieldset class="table-win">
-		<legend>Test table</legend>
-		<div class="table-grid" :style="{'--rows':rows,'--cols':cols}" title="Test table">
+	<fieldset 
+		class="table-win" 
+		:style="{'--pos-x':`${positions[0].x}px`,'--pos-y':`${positions[0].y}px`}"
+		>
+		<legend @dblclick="handleShow" draggable="true" 
+			@dragend="(e)=>handleDrop(e,0)"
+			@dragstart="(e)=>handleStart(e,0)">
+			Test table
+		</legend>
+		<div v-show="isVisible" class="table-grid" :style="{'--rows':rows,'--cols':cols}" title="Test table">
 			
 			<span class="col-label"></span>
 			<template v-for="col of range(cols)">
@@ -19,11 +26,36 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, unref } from 'vue';
+
+const positions = ref([{x:0,y:0},{x:0,y:0}]);
+const starts = ref([{x:0,y:0},{x:0,y:0}]);
+
+function handleStart(e: DragEvent,index:number) {
+	const sts = unref(starts);
+	sts[index] = {x:e.screenX,y:e.screenY};
+	starts.value = sts;
+}
+
+function handleDrop(e: DragEvent,index:number) {
+	const pos = unref(positions);
+
+	const p = pos[index];
+
+	p.y += e.screenY - unref(starts)[index].y;
+	p.x += e.screenX - unref(starts)[index].x;
+
+	positions.value = pos;
+}
 
 
 const rows = ref(30);
 const cols = ref(10);
+const isVisible=ref(true);
+
+function handleShow(){
+	isVisible.value = !unref(isVisible);
+}
 
 function* range(n){
 	for(let i=0;i<n;i++){
@@ -44,11 +76,28 @@ function* table_range(n,m){
 <style scoped>
 
 .table-win{
+	position:absolute;
+	top:var(--pos-y,10px);
+	left:var(--pos-x,10px);
 	width: fit-content;
 	height: fit-content;
 	border:1px solid var(--th-cl2);
-	padding:5px;
+	padding:0.36rem;
+	padding-right: 0.76rem;
+	border-radius: 5px;
 	overflow: hidden;
+	background: var(--th-cl0);
+}
+
+.table-win > legend {
+	background: var(--th-cl1);
+	border-radius:5px;
+	padding-inline: 0.76rem;
+	display: block;
+}
+
+.table-win > legend:hover {
+	background:var(--th-cl2);
 }
 
 .table-grid {
@@ -63,8 +112,8 @@ function* table_range(n,m){
 	height: fit-content;
 	max-width: 35rem;
 	max-height: 25rem;
-	min-width: 10rem;
-	min-height: 4ch;
+	min-width: 12rem;
+	min-height: 10ch;
 	overflow: scroll;
 	scrollbar-width: initial;
 	scroll-snap-align: proximity;

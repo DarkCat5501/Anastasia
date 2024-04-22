@@ -1,5 +1,5 @@
 <template>
-	<main v-setup ref="viewport" class="an-viewport">
+	<div class="an-viewport">
 		<div class="overlay-menu">
 			<button @click="toggleLock">
 				<span v-if="locked" class="material-symbols-outlined">lock</span>
@@ -9,19 +9,44 @@
 				<span class="material-symbols-outlined" :class="{'active':pan_active}">pan_tool</span>
 			</button>
 		</div>
+		<main v-setup ref="viewport" class="an-panport">
 
-		<DataTable/>
-	</main>
+			<DataTable/>
+			<DataTable/>
+			<DataTable/>
+			<DataTable/>
+			<DataTable/>
+
+			<!-- <NodeLink/> -->
+			<!-- <NodeLink/> -->
+		</main>
+	</div>
 </template>
 <script setup lang="ts">
 
 import { ref } from "vue";
 import {MainViewport} from "../composables/viewport";
 import DataTable from "./DataTable.vue";
+import NodeLink from "./NodeLink.vue";
+
+function handleColision(){
+	console.log(arguments);
+}
 
 const vSetup = {
 	created: (el) => {
+		// console.log("click");
 		// MainViewport.attach(el);
+		const options = {
+			root: el,
+			threshold:0
+		};
+
+		el._cl_obs = new IntersectionObserver(handleColision, {
+			root:el,
+			threshold:0,
+			rootMargin:"10px",
+		});
 	},
 	// beforeMount: (el) => {},
 	// mounted: (el) => {},
@@ -50,8 +75,22 @@ function togglePan(){
 	display: flex;
 	justify-content: center;
 	position: relative;
-	height: 100%;
+	height: 100%; width:100%;
+	overflow:hidden;
 	/* user-zoom: fixed; */
+}
+.an-panport{
+	position:relative;
+	overflow: scroll;
+	transform: translate(var(--pos-x,0px),var(--pos-y,0px));
+	border:1px solid red;
+	width:100%;
+	height:100%;
+	padding:3rem;
+	scroll-margin: 3rem;
+	scroll-padding: 10rem;
+	scroll-behavior: smooth;
+
 }
 button {
 	padding:5px;
